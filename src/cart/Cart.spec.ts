@@ -56,12 +56,23 @@ describe('#calculateTotalCost', () => {
 })
 
 describe('#applyDiscount', () => {
-  test('calculates correct discount', () => {
+  test('calculates correct discount three for one thursday', () => {
     const cart = new Cart();
     cart.addToCart(products[0]);
     cart.addToCart(products[1]);
     cart.addToCart(products[1]);
 
     expect(cart.getDiscountedCost()).toBe(7.9)
+  })
+})
+
+describe('#showSavings', () => {
+  test('when discount applied correct savings are calculted', () => {
+    const cart = new Cart();
+    cart.addToCart(products[0]);
+    cart.addToCart(products[1]);
+    cart.addToCart(products[1]);
+
+    expect(cart.getSavings()).toBe(10.80);
   })
 })

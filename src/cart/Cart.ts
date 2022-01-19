@@ -9,6 +9,7 @@ export class Cart {
   numberOfTickets: number;
   discountedCost: number;
   offerCalculator: OfferCalculator;
+  savings: number;
 
   constructor() {
     this.tickets = [];
@@ -17,11 +18,14 @@ export class Cart {
     this.numberOfTickets = 0;
     this.discountedCost = 0;
     this.offerCalculator = new OfferCalculator();
+    this.savings = 0;
   }
 
   addToCart(ticket: Ticket) {
     this.tickets.push(ticket);
     this.setNumberOfTickets(this.numberOfTickets + 1);
+
+    this.setTotalCost(penniesToPounds(poundsToPennies(this.getTotalCost()) + poundsToPennies(ticket.getPrice())));
     let cartDiscount = this.calculateCartOffers();
 
     this.applyDiscount(cartDiscount)
@@ -29,6 +33,9 @@ export class Cart {
 
   applyDiscount(discount: number) {
     this.discountedCost = discount;
+    console.log(this.totalCost);
+
+    this.setSavings(penniesToPounds(poundsToPennies(this.getTotalCost()) - poundsToPennies(this.discountedCost)));
   }
 
   calculateTicketOffers(ticket: Ticket) {
@@ -53,6 +60,14 @@ export class Cart {
 
   setNumberOfTickets(numberOfTickets: number) {
     this.numberOfTickets = numberOfTickets;
+  }
+
+  getSavings() {
+    return this.savings;
+  }
+
+  setSavings(savings: number) {
+    this.savings = savings;
   }
 
   calculateTotalCost() {
