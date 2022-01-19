@@ -65,4 +65,54 @@ npm test
 
 ### Assumptions
 
-External data such as prices or offers would be retrieved via an API call.
+External data such as prices or offers would be retrieved via an API call. In the mock folder some examples have been included, retrieving via an array means that the prices could change in the backend and this would be retrieved in the shopping cart application. Any additonal extras are included in the extras array. Again if these were changed this would be reflected in the application.
+
+```json
+{
+  "standard": 7.9,
+  "concession": 5.4,
+  "extras": [
+    {
+      "id": 1,
+      "description": "Imax",
+      "price": 1.5
+    },
+    {
+      "id": 2,
+      "description": "Real3D",
+      "price": 0.9
+    }
+  ]
+}
+```
+
+Offers are also included in the mock below is an example of one. The structure is the following
+
+- description: Contains the description of the offer
+- discountType: Can be percentage or buyXGetYFree offer
+- offerCriteria: This is an array of rules which must be met to be eligible for the offer
+  - description: can be day, or quantity
+  - value: number if day corresponds to the day returned by .getDay(), if quantity corresponds to the number of tickets in the cart
+
+```json
+{
+  "description": "Three for one Thursday",
+  "discountType": "buyXGetYFree",
+  "offerCriteria": [
+    {
+      "description": "day",
+      "value": 4
+    },
+    {
+      "description": "quantity",
+      "value": 3
+    }
+  ],
+  "percentageDiscount": 0,
+  "buyXGetYFree": {
+    "x": 1,
+    "y": 2,
+    "minNumberOfTickets": 3
+  }
+}
+```
