@@ -33,8 +33,6 @@ export class Cart {
 
   applyDiscount(discount: number) {
     this.discountedCost = discount;
-    console.log(this.totalCost);
-
     this.setSavings(penniesToPounds(poundsToPennies(this.getTotalCost()) - poundsToPennies(this.discountedCost)));
   }
 

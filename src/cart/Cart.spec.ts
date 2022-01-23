@@ -1,18 +1,14 @@
 import { Cart } from './Cart';
 import { Ticket, TicketType } from '../ticket/Ticket';
 
+const mockDate = () => {
+  jest
+    .spyOn(global.Date, 'now')
+    .mockImplementationOnce(() =>
+      new Date('2022-01-20T11:01:58.135Z').valueOf()
+    )
+}
 
-// your-test.spec.js
-
-const RealDate = Date.now
-
-beforeAll(() => {
-  global.Date.now = jest.fn(() => new Date('2019-04-07T10:20:30Z').getTime())
-})
-
-afterAll(() => {
-  global.Date.now = RealDate
-})
 const products: Ticket[] = [
   new Ticket(TicketType.Standard, []),
   new Ticket(TicketType.Concession, [])
@@ -57,6 +53,7 @@ describe('#calculateTotalCost', () => {
 
 describe('#applyDiscount', () => {
   test('calculates correct discount three for one thursday', () => {
+    mockDate();
     const cart = new Cart();
     cart.addToCart(products[0]);
     cart.addToCart(products[1]);
@@ -68,6 +65,7 @@ describe('#applyDiscount', () => {
 
 describe('#showSavings', () => {
   test('when discount applied correct savings are calculted', () => {
+    mockDate();
     const cart = new Cart();
     cart.addToCart(products[0]);
     cart.addToCart(products[1]);

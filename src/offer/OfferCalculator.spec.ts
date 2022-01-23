@@ -9,11 +9,19 @@ const products: Ticket[] = [
   new Ticket(TicketType.Standard, [{ id: 1, description: 'imax', price: 1.50 }])
 ]
 
+const mockDate = () => {
+  jest
+    .spyOn(global.Date, 'now')
+    .mockImplementationOnce(() =>
+      new Date('2022-01-20T11:01:58.135Z').valueOf()
+    )
+}
+
 describe('#getEligibleCartOffers', () => {
   test('get eligible cart offers returns an array of eligible offers', () => {
+    mockDate();
     const cart = new Cart();
     const offerCalculator = cart.offerCalculator;
-    offerCalculator.setDate(new Date(2022, 0, 20));
     cart.addToCart(products[0]);
     cart.addToCart(products[0]);
     cart.addToCart(products[1]);
@@ -41,9 +49,9 @@ describe('#getElibileTicketOffers', () => {
 
 describe('#calculateCartDiscount', () => {
   test('calculate cart discount applies 3 for 1 thursday discount correctly', () => {
+    mockDate();
     const cart = new Cart();
     const offerCalculator = cart.offerCalculator;
-    offerCalculator.setDate(new Date(2022, 0, 20));
     cart.addToCart(products[0]);
     cart.addToCart(products[0]);
     cart.addToCart(products[1]);
@@ -54,9 +62,9 @@ describe('#calculateCartDiscount', () => {
   })
 
   test('3 for one Thursday should result in discount of 4 tickets if 6 tickets purchased', () => {
+    mockDate()
     const cart = new Cart();
     const offerCalculator = cart.offerCalculator;
-    offerCalculator.setDate(new Date(2022, 0, 20));
     cart.addToCart(products[0]);
     cart.addToCart(products[0]);
     cart.addToCart(products[1]);

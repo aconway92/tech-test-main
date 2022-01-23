@@ -13,7 +13,7 @@ export class OfferCalculator {
   constructor() {
     this.cartOffers = this.fetchCartOffers();
     this.ticketOffers = this.fetchTicketOffers();
-    this.date = new Date();
+    this.date = new Date(Date.now());
   }
   // does cart meet criteria
   // apply discount

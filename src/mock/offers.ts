@@ -26,7 +26,7 @@ export const cartOffers = [
     offerCriteria: [
       {
         description: 'day',
-        value: 2
+        value: 3
       },
       {
         description: 'quantity',
